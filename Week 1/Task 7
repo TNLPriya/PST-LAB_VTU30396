@@ -1,0 +1,34 @@
+PROBLEM STATEMENT:
+You are given a 2D integer array accounts, where:
+accounts[i][j]
+represents the amount of money the ith customer has in their jth bank account.
+The wealth of a customer is the total amount of money in all their bank accounts.
+Find and return the maximum wealth among all customers.
+AIM:
+To find the richest customer's total wealth by calculating the sum of each row in a 2D array.
+JAVA CODE:
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+
+        int maxWealth = 0;
+
+        for (int i = 0; i < accounts.length; i++) {
+
+            int wealth = 0;
+
+            for (int j = 0; j < accounts[i].length; j++) {
+                wealth = wealth + accounts[i][j];
+            }
+
+            if (wealth > maxWealth) {
+                maxWealth = wealth;
+            }
+        }
+
+        return maxWealth;
+    }
+}
+INPUT:
+accounts = [[1,2,3],[3,2,1]]
+OUTPUT:
+6
