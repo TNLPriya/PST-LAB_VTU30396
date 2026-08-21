@@ -1,0 +1,39 @@
+PROBLEM STATEMENT:
+Given an integer array nums sorted in non-decreasing order, square every element and return a new array containing the squares in non-decreasing order.
+For example:
+[-4, -1, 0, 3, 10]
+After squaring:
+[16, 1, 0, 9, 100]
+After sorting:
+[0, 1, 9, 16, 100]
+AIM:
+To square every element of a sorted array and return the squared values in sorted order
+JAVA CODE:
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+
+        int n = nums.length;
+        int[] result = new int[n];
+
+        int left = 0;
+        int right = n - 1;
+
+        // Fill the result array from the end
+        for (int i = n - 1; i >= 0; i--) {
+
+            if (Math.abs(nums[left]) > Math.abs(nums[right])) {
+                result[i] = nums[left] * nums[left];
+                left++;
+            } else {
+                result[i] = nums[right] * nums[right];
+                right--;
+            }
+        }
+
+        return result;
+    }
+}
+INPUT:
+nums = [-4,-1,0,3,10]
+OUTPUT:
+[0,1,9,16,100]
