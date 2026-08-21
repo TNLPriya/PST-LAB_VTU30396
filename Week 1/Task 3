@@ -1,0 +1,84 @@
+PROBLEM STATEMENT:
+Given a number of test cases, implement three Java 8 lambda expressions:
+isOdd() – Check whether a number is odd or even.
+isPrime() – Check whether a number is prime or composite.
+isPalindrome() – Check whether a number reads the same forward and backward.
+The program uses a PerformOperation functional interface and Java 8 Lambda Expressions.
+AIM:
+To implement Odd/Even, Prime/Composite, and Palindrome number checking using Java 8 Lambda Expressions and Functional Interfaces.
+JAVA CODE:
+import java.io.*;
+import java.util.*;
+interface PerformOperation {
+    boolean check(int num);
+}
+public class Solution {
+    // Check Odd / Even
+    public static PerformOperation isOdd() {
+        return (num) -> num % 2 != 0;
+    }
+    // Check Prime / Composite
+    public static PerformOperation isPrime() {
+        return (num) -> {
+            if (num < 2)
+                return false;
+            for (int i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0)
+                    return false;
+            }
+
+            return true;
+        };
+    }
+
+    // Check Palindrome
+    public static PerformOperation isPalindrome() {
+        return (num) -> {
+            int original = num;
+            int reverse = 0;
+            while (num != 0) {
+                int digit = num % 10;
+                reverse = reverse * 10 + digit;
+                num = num / 10;
+            }
+
+            return original == reverse;
+        };
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+
+            int condition = sc.nextInt();
+            int number = sc.nextInt();
+
+            if (condition == 1) {
+                if (isOdd().check(number))
+                    System.out.println("ODD");
+                else
+                    System.out.println("EVEN");
+
+            } else if (condition == 2) {
+                if (isPrime().check(number))
+                    System.out.println("PRIME");
+                else
+                    System.out.println("COMPOSITE");
+
+            } else if (condition == 3) {
+                if (isPalindrome().check(number))
+                    System.out.println("PALINDROME");
+                else
+                    System.out.println("NOT PALINDROME");
+            }
+        }
+
+        sc.close();
+    }
+}
+INPUT:nums = [3, 1, 2, 4]
+OUTPUT:[4, 2, 1, 3]
