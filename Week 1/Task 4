@@ -1,0 +1,75 @@
+PROBLEM STATEMENT:
+Given an array of Player objects, sort the players using a Comparator with these rules:
+Sort players by score in decreasing order.
+If two players have the same score, sort them by name in alphabetical ascending order.
+You need to create a Checker class that implements the Comparator<Player> interface and override the compare() method.
+AIM:
+To implement a Comparator in Java to sort objects based on multiple conditions: descending score and ascending name.
+JAVA CODE:
+import java.util.*;
+class Player {
+    String name;
+    int score;
+
+    Player(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+}
+
+class Checker implements Comparator<Player> {
+
+    @Override
+    public int compare(Player a, Player b) {
+
+        // First compare scores in descending order
+        if (a.score != b.score) {
+            return b.score - a.score;
+        }
+
+        // If scores are same, compare names alphabetically
+        return a.name.compareTo(b.name);
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        Player[] players = new Player[n];
+
+        for (int i = 0; i < n; i++) {
+            String name = sc.next();
+            int score = sc.nextInt();
+
+            players[i] = new Player(name, score);
+        }
+
+        // Sort using Checker
+        Arrays.sort(players, new Checker());
+
+        // Print sorted players
+        for (Player p : players) {
+            System.out.println(p.name + " " + p.score);
+        }
+
+        sc.close();
+    }
+}
+INPUT:
+5
+amy 100
+david 100
+heraldo 50
+aakansha 75
+aleksa 150
+OUTPUT:
+aleksa 150
+amy 100
+david 100
+aakansha 75
+heraldo 50
