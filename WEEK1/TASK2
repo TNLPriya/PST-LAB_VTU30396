@@ -1,0 +1,66 @@
+PROBLEM STATEMENT:
+You are given a list of student information: ID, FirstName, and CGPA.
+Your task is to rearrange the students according to the following rules:
+Sort by CGPA in decreasing order.
+If two students have the same CGPA, sort them by FirstName in alphabetical order.
+If both CGPA and FirstName are the same, sort them by ID in ascending order.
+Finally, print the FirstName of each student in the sorted order.
+AIM:
+To implement a program in Java that uses a Comparator to sort a list of student objects based on multiple criteria (CGPA, FirstName, ID) and display the sorted names.
+JAVA CODE:
+import java.util.*;
+class Student {
+    int id;
+    String firstName;
+    double cgpa;
+
+    Student(int id, String firstName, double cgpa) {
+        this.id = id;
+        this.firstName = firstName;
+        this.cgpa = cgpa;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int svg = sc.nextInt();  // number of students
+        List<Student> students = new ArrayList<>();
+
+        for (int i = 0; i < svg; i++) {
+            int id = sc.nextInt();
+            String name = sc.next();
+            double cgpa = sc.nextDouble();
+            students.add(new Student(id, name, cgpa));
+        }
+
+        // Sorting using custom comparator
+        students.sort((s1, s2) -> {
+            if (Double.compare(s2.cgpa, s1.cgpa) != 0) {
+                return Double.compare(s2.cgpa, s1.cgpa); // Higher CGPA first
+            } else if (!s1.firstName.equals(s2.firstName)) {
+                return s1.firstName.compareTo(s2.firstName); // Alphabetical order
+            } else {
+                return Integer.compare(s1.id, s2.id); // Smaller ID first
+            }
+        });
+
+        // Printing result
+        for (Student s : students) {
+            System.out.println(s.firstName);
+        }
+    }
+}
+INPUT:
+5
+33 Rumpa 3.68
+85 Ashis 3.85
+56 Samiha 3.75
+19 Samara 3.75
+22 Fahim 3.76
+OUTPUT:
+Ashis
+Fahim
+Samara
+Samiha
+Rumpa
