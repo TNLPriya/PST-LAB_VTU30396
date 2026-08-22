@@ -1,0 +1,36 @@
+PROBLEM STATEMENT:
+Given a zero-based permutation nums, construct an array ans of the same length such that:
+ans[i] = nums[nums[i]]
+for every valid index i.Return the resulting array.
+AIM:
+To construct the array ans by accessing each element of nums twice using the formula ans[i] = nums[nums[i]].
+JAVA CODE:
+import java.util.*;
+public class BuildArray {
+  public static int[] buildArray(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            ans[i] = nums[nums[i]];
+        }
+        return ans;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        int[] ans = buildArray(nums);
+        for (int i = 0; i < n; i++) {
+            System.out.print(ans[i] + " ");
+        }
+        sc.close();
+    }
+}
+INPUT:
+6
+0 2 1 5 3 4
+OUTPUT:
+0 1 2 4 5 3
