@@ -1,0 +1,26 @@
+PROBLEM STATEMENT:
+Given an integer array nums containing 2n elements in the form:
+[x1, x2, ..., xn, y1, y2, ..., yn]
+Return a new array in the form:
+[x1, y1, x2, y2, ..., xn, yn]
+This means we need to shuffle the two halves of the array alternately.
+AIM:
+write a Java program to rearrange an array of 2n elements by alternately combining elements from its first half and second half.
+JAVA CODE:
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+        int[] result = new int[2 * n];
+
+        for (int i = 0; i < n; i++) {
+            result[2 * i] = nums[i];
+            result[2 * i + 1] = nums[i + n];
+        }
+
+        return result;
+    }
+}
+INPUT:
+nums = [2, 5, 1, 3, 4, 7]
+n = 3
+OUTPUT:
+[2, 3, 5, 4, 1, 7]
