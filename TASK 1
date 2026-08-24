@@ -1,0 +1,42 @@
+AIM:
+To write a Java program that reads the salaries of employees, increases each salary by 10%, and displays the updated salaries.JAVA CODE:
+Java pr1 
+import java.util.Scanner;
+public class SalaryTransformation {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of employees: ");
+        int n = sc.nextInt();
+        double[] salary = new double[n];
+        System.out.println("Enter salaries:");
+        // Input salaries
+        for (int i = 0; i < n; i++) {
+            salary[i] = sc.nextDouble();
+        }
+
+        // Increase salary by 10%
+        for (int i = 0; i < n; i++) {
+            salary[i] = salary[i] + (salary[i] * 0.10);
+        }
+
+        // Print updated salaries
+        System.out.println("Updated salaries:");
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(salary[i]);
+        }
+
+        sc.close();
+    }
+}
+INPUT:
+Enter number of employees: 3
+Enter salaries:
+10000
+20000
+30000
+OUTPUT:
+Updated salaries:
+11000.0
+22000.0
+33000.0
