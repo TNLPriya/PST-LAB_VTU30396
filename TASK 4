@@ -1,0 +1,78 @@
+AIM:
+To write a Java program that searches for a dangerous DNA pattern in a DNA sequence using the KMP (Knuth-Morris-Pratt) Algorithm.
+JAVA CODE:
+public class DNAKMP {
+
+    // Function to compute LPS (Longest Prefix Suffix) array
+    private static int[] computeLPS(String pattern) {
+        int m = pattern.length();
+        int[] lps = new int[m];
+        int len = 0;
+        int i = 1;
+
+        while (i < m) {
+            if (pattern.charAt(i) == pattern.charAt(len)) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+    // KMP Search function
+    public static void kmpSearch(String text, String pattern) {
+        int n = text.length();
+        int m = pattern.length();
+        int[] lps = computeLPS(pattern);
+
+        int i = 0; // index for text
+        int j = 0; // index for pattern
+
+        while (i < n) {
+            if (pattern.charAt(j) == text.charAt(i)) {
+                i++;
+                j++;
+            }
+
+            if (j == m) {
+                System.out.println("Dangerous pattern found at index " + (i - j));
+                j = lps[j - 1];
+            } else if (i < n && pattern.charAt(j) != text.charAt(i)) {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        String dnaSequence = "ATCGTACGTACGATCGTACG";
+        String dangerousPattern = "GTACG";
+
+        System.out.println("DNA Sequence: " + dnaSequence);
+        System.out.println("Searching for pattern: " + dangerousPattern);
+        kmpSearch(dnaSequence, dangerousPattern);
+    }
+}
+INPUT:
+DNA Sequence:
+ATCGTACGTACGATCGTACG
+Dangerous Pattern:
+GTACG
+OUTPUT:
+DNA Sequence: ATCGTACGTACGATCGTACG
+Searching for pattern: GTACG
+Dangerous pattern found at index 3
+Dangerous pattern found at index 7
+Dangerous pattern found at index 15
