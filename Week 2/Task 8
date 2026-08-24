@@ -1,0 +1,56 @@
+PROBLEM STATEMENT:
+Given n integers and a subarray size m, find the maximum number of unique (distinct) integers among all possible contiguous subarrays of size m.
+AIM:
+To write a Java program using a Deque and HashSet to find the maximum number of distinct integers in a contiguous subarray of a given size.
+JAVA CODE:
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+
+        Deque<Integer> deque = new ArrayDeque<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        int maxUnique = 0;
+
+        for (int i = 0; i < n; i++) {
+            int num = sc.nextInt();
+
+            // Add element to the back of deque
+            deque.addLast(num);
+
+            // Store frequency
+            map.put(num, map.getOrDefault(num, 0) + 1);
+
+            // Remove the first element if size exceeds m
+            if (deque.size() > m) {
+                int removed = deque.removeFirst();
+
+                map.put(removed, map.get(removed) - 1);
+
+                if (map.get(removed) == 0) {
+                    map.remove(removed);
+                }
+            }
+
+            // Check maximum unique elements
+            if (deque.size() == m) {
+                maxUnique = Math.max(maxUnique, map.size());
+            }
+        }
+
+        System.out.println(maxUnique);
+
+        sc.close();
+    }
+}
+INPUT:
+6 3
+5 3 5 2 3 2
+OUTPUT:
+3
