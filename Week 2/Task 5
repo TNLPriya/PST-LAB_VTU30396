@@ -1,0 +1,27 @@
+PROBLEM STATEMENT:
+Abiker starts a road trip at point 0 with an altitude of 0.
+You are given an integer array gain, where each gain[i] represents the change in altitude between point i and point i + 1.
+Find and return the highest altitude reached during the trip.
+AIM:
+To write a Java program that calculates the altitude at each point and finds the maximum altitude reached by the biker.
+JAVA CODE:
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int altitude = 0;
+        int maxAltitude = 0;
+
+        for (int i = 0; i < gain.length; i++) {
+            altitude = altitude + gain[i];
+
+            if (altitude > maxAltitude) {
+                maxAltitude = altitude;
+            }
+        }
+
+        return maxAltitude;
+    }
+}
+INPUT:
+gain = [-5, 1, 5, 0, -7]
+OUTPUT:
+1
