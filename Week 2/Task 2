@@ -1,0 +1,24 @@
+PROBLEM STATEMENT:
+Given an integer array nums and an integer val, remove all occurrences of val from the array in-place. Return the number 
+of elements that are not equal to val.The first k elements of the array should contain all elements that are not equal to val, where k is the returned value.
+AIM:To write a Java program that removes all occurrences of a given value from an integer array in-place and returns the number of remaining elements.
+JAVA CODE:
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int k = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[k] = nums[i];
+                k++;
+            }
+        }
+
+        return k;
+    }
+}
+INPUT:
+nums = [3, 2, 2, 3]
+val = 3
+OUTPUT:
+2
