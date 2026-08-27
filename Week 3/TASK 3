@@ -1,0 +1,18 @@
+PRROBLEM STATEMENT:
+Given a string date representing a Gregorian calendar date formatted as YYYY-MM-DD, return the day number of the year.
+JAVA CODE:
+import java.time.LocalDate;
+
+class Solution {
+    public int dayOfYear(String date) {
+        // Parse the string into a LocalDate object
+        LocalDate d = LocalDate.parse(date);
+
+        // Return the day of the year
+        return d.getDayOfYear();
+    }
+}
+INPUT:
+date = "2019-02-10"
+OUTPUT:
+41
