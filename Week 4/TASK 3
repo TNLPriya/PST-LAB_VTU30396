@@ -1,0 +1,57 @@
+PROBLEM STATEMENT:
+Alice and Bob each created one problem for HackerRank.
+A reviewer rates the two challenges, awarding points on a scale from 1 to 100 for three categories:
+Problem clarity
+Originality
+Difficulty
+The ratings are given as triplets:
+Alice → a = (a[0], a[1], a[2])
+Bob → b = (b[0], b[1], b[2])
+Rules:
+If a[i] > b[i], Alice gets 1 point.
+If a[i] < b[i], Bob gets 1 point.
+If a[i] == b[i], no points are awarded.
+Return an array [AliceScore, BobScore].
+JAVA CODE:
+import java.util.*;
+
+public class Solution {
+    public static List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
+        int alice = 0, bob = 0;
+        
+        for (int i = 0; i < 3; i++) {
+            if (a.get(i) > b.get(i)) {
+                alice++;
+            } else if (a.get(i) < b.get(i)) {
+                bob++;
+            }
+        }
+        
+        return Arrays.asList(alice, bob);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        List<Integer> a = new ArrayList<>();
+        List<Integer> b = new ArrayList<>();
+        
+        for (int i = 0; i < 3; i++) {
+            a.add(sc.nextInt());
+        }
+        for (int i = 0; i < 3; i++) {
+            b.add(sc.nextInt());
+        }
+        
+        List<Integer> result = compareTriplets(a, b);
+        System.out.println(result.get(0) + " " + result.get(1));
+        
+        sc.close();
+    }
+}
+INPUT:
+17 28 30
+99 16 8
+OUTPUT:
+2 1
+
