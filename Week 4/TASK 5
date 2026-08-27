@@ -1,0 +1,25 @@
+PROBLEM STATEMENT:
+Given an integer array nums, move all 0s to the end of it while maintaining the relative order of the non-zero elements.
+Do this in-place (without making a copy of the array).
+JAVA CODE:
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int index = 0; // position to place the next non-zero element
+        
+        // Step 1: Move non-zero elements forward
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[index++] = nums[i];
+            }
+        }
+        
+        // Step 2: Fill remaining positions with zeros
+        while (index < nums.length) {
+            nums[index++] = 0;
+        }
+    }
+}
+INPUT:
+nums = [0]
+OUTPUT:
+[0]
