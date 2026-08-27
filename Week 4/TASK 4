@@ -1,0 +1,39 @@
+PROBLEM STATEMENT:
+Given a time in 12-hour AM/PM format, convert it to 24-hour military time.
+12:00:00AM → 00:00:00
+12:00:00PM → 12:00:00
+JAVA CODE:
+import java.util.*;
+
+public class Solution {
+    public static String timeConversion(String s) {
+        // Extract hour, minutes, seconds, and AM/PM
+        String ampm = s.substring(8); // AM or PM
+        int hour = Integer.parseInt(s.substring(0, 2));
+        String minutesSeconds = s.substring(2, 8);
+
+        if (ampm.equals("AM")) {
+            if (hour == 12) {
+                hour = 0; // midnight case
+            }
+        } else { // PM case
+            if (hour != 12) {
+                hour += 12; // afternoon/evening case
+            }
+        }
+
+        // Format hour as two digits
+        return String.format("%02d%s", hour, minutesSeconds);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        System.out.println(timeConversion(s));
+        sc.close();
+    }
+}
+INPUT:
+07:05:45PM
+OUTPUT:
+
