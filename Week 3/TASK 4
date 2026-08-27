@@ -1,0 +1,28 @@
+PROBLEM STATEMENT:
+Given a date, return the corresponding day of the week for that date.
+Input: three integers representing day, month, year.
+Output: one of the values from
+{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}.
+Note: January 1, 1971 was a Friday.
+JAVA CODE:
+import java.time.LocalDate;
+import java.time.DayOfWeek;
+
+class Solution {
+    public String dayOfTheWeek(int day, int month, int year) {
+        // Create a LocalDate object
+        LocalDate date = LocalDate.of(year, month, day);
+
+        // Get the day of the week
+        DayOfWeek dow = date.getDayOfWeek();
+
+        // Return the name with first letter capitalized
+        String result = dow.toString().substring(0,1).toUpperCase() + dow.toString().substring(1).toLowerCase();
+        return result;
+    }
+}
+INPUT:
+day = 15, month = 8, year = 1993
+OUTPUT:
+Sunday
+
