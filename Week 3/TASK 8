@@ -1,0 +1,65 @@
+PROBLEM STATEMENT:
+You are given an array of Player objects. Each Player has:a String namean int score
+You need to sort the players using the following rules:
+Players with higher scores come first.
+If two players have the same score, sort them by name in ascending alphabetical order.
+To achieve this, you must:
+Create a Checker class that implements the Comparator<Player> interface.
+Implement the compare(Player a, Player b) method.
+JAVA CODE:
+import java.util.*;
+
+// Write your Checker class here
+class Checker implements Comparator<Player> {
+    @Override
+    public int compare(Player a, Player b) {
+        if (a.score == b.score) {
+            return a.name.compareTo(b.name); // sort by name ascending
+        } else {
+            return b.score - a.score; // sort by score descending
+        }
+    }
+}
+
+class Player {
+    String name;
+    int score;
+    
+    Player(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+}
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        
+        Player[] players = new Player[n];
+        for (int i = 0; i < n; i++) {
+            players[i] = new Player(sc.next(), sc.nextInt());
+        }
+        sc.close();
+        
+        Arrays.sort(players, new Checker());
+        
+        for (Player p : players) {
+            System.out.println(p.name + " " + p.score);
+        }
+    }
+}
+INPUT:
+5
+amy 100
+david 100
+heraldo 50
+aakansha 75
+aleksa 150
+OUTPUT:
+aleksa 150
+amy 100
+david 100
+aakansha 75
+heraldo 50
+
