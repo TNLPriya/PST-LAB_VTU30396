@@ -1,0 +1,65 @@
+PROBLEM STATEMENT:
+A Lapindrome is defined as a string which, when split in the middle, gives two halves having the same characters with the same frequency.
+If the string length is odd, ignore the middle character.
+You must determine whether a given string is a lapindrome.
+JAVA CODE:
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        
+        while (T-- > 0) {
+            String s = sc.next();
+            int n = s.length();
+            String left, right;
+            
+            if (n % 2 == 0) {
+                left = s.substring(0, n/2);
+                right = s.substring(n/2);
+            } else {
+                left = s.substring(0, n/2);
+                right = s.substring(n/2 + 1);
+            }
+            
+            if (isLapindrome(left, right)) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
+        }
+        sc.close();
+    }
+    
+    private static boolean isLapindrome(String left, String right) {
+        int[] freq = new int[26];
+        
+        for (char c : left.toCharArray()) {
+            freq[c - 'a']++;
+        }
+        for (char c : right.toCharArray()) {
+            freq[c - 'a']--;
+        }
+        
+        for (int f : freq) {
+            if (f != 0) return false;
+        }
+        return true;
+    }
+}
+INPUT:
+6
+gaga
+abcde
+rotor
+xyzxy
+abbaab
+ababc
+OUTPUT:
+YES
+NO
+YES
+YES
+NO
+NO
