@@ -1,0 +1,57 @@
+PROBLEM STATEMENT:
+Design classes for bank accounts supporting deposit and withdrawal operations.
+At the end of all operations, display the final balance.
+JAVA CODE:
+import java.util.*;
+
+class BankAccount {
+    private int balance;
+
+    public BankAccount() {
+        this.balance = 0;
+    }
+
+    public void deposit(int amount) {
+        balance += amount;
+    }
+
+    public void withdraw(int amount) {
+        balance -= amount;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        BankAccount account = new BankAccount();
+
+        for (int i = 0; i < N; i++) {
+            String[] parts = sc.nextLine().split(" ");
+            String operation = parts[0];
+            int amount = Integer.parseInt(parts[1]);
+
+            if (operation.equals("Deposit")) {
+                account.deposit(amount);
+            } else if (operation.equals("Withdraw")) {
+                account.withdraw(amount);
+            }
+        }
+
+        System.out.println(account.getBalance());
+        sc.close();
+    }
+}
+INPUT:
+3
+Deposit 5000
+Withdraw 2000
+Deposit 1000
+OUTPUT:
+4000
