@@ -1,0 +1,100 @@
+PROBLEM STATEMENT:
+Design a ride-sharing system with reusable classes:
+Driver
+Rider
+Vehicle
+Trip
+Support polymorphic fare calculation for different ride types:
+Bike
+Auto
+Cab
+Include exception handling for invalid bookings.
+JAVA CODE:
+import java.util.*;
+
+abstract class Vehicle {
+    public abstract int calculateFare(int distance);
+}
+
+class Bike extends Vehicle {
+    @Override
+    public int calculateFare(int distance) {
+        return distance * 5; // Rs.5 per km
+    }
+}
+
+class Auto extends Vehicle {
+    @Override
+    public int calculateFare(int distance) {
+        return distance * 12; // Rs.12 per km
+    }
+}
+
+class Cab extends Vehicle {
+    @Override
+    public int calculateFare(int distance) {
+        return distance * 12; // Rs.12 per km
+    }
+}
+
+class Trip {
+    private Vehicle vehicle;
+    private int distance;
+
+    public Trip(Vehicle vehicle, int distance) {
+        this.vehicle = vehicle;
+        this.distance = distance;
+    }
+
+    public int getFare() {
+        return vehicle.calculateFare(distance);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        for (int i = 0; i < N; i++) {
+            try {
+                String[] input = sc.nextLine().split(" ");
+                String type = input[0];
+                int distance = Integer.parseInt(input[1]);
+
+                Vehicle vehicle;
+                switch (type) {
+                    case "Bike":
+                        vehicle = new Bike();
+                        break;
+                    case "Auto":
+                        vehicle = new Auto();
+                        break;
+                    case "Cab":
+                        vehicle = new Cab();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid ride type: " + type);
+                }
+
+                Trip trip = new Trip(vehicle, distance);
+                System.out.println(trip.getFare());
+
+            } catch (Exception e) {
+                System.out.println("Booking Error: " + e.getMessage());
+            }
+        }
+
+        sc.close();
+    }
+}
+INPUT:
+3
+Bike 10
+Cab 15
+Auto 8
+OUTPUT:
+50
+180
+96
