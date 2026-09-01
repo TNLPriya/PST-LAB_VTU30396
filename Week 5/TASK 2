@@ -1,0 +1,47 @@
+PROBLEM STATEMENT:
+Two children, Lily and Ron, want to share a chocolate bar. Each square of the bar has an integer on it. Lily decides to share a contiguous segment of the bar such that:
+The length of the segment equals Ron’s birth month m.
+The sum of the integers in the segment equals Ron’s birth day d.
+Determine how many ways Lily can divide the chocolate.
+JAVA CODE:
+import java.util.*;
+
+class Result {
+    public static int birthday(List<Integer> s, int d, int m) {
+        int count = 0;
+        // Iterate through possible starting points
+        for (int i = 0; i <= s.size() - m; i++) {
+            int sum = 0;
+            // Sum the next m elements
+            for (int j = 0; j < m; j++) {
+                sum += s.get(i + j);
+            }
+            if (sum == d) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); // number of squares
+        List<Integer> s = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            s.add(sc.nextInt());
+        }
+        int d = sc.nextInt(); // Ron's birth day
+        int m = sc.nextInt(); // Ron's birth month
+
+        int result = Result.birthday(s, d, m);
+        System.out.println(result);
+    }
+}
+INPUT:
+5
+1 2 1 3 2
+3 2
+OUTPUT:
+2
