@@ -1,0 +1,63 @@
+AIM:
+To determine the index of a character that can be removed from a string to make it a palindrome.
+If the string is already a palindrome, return -1.
+If multiple solutions exist, return any valid index.
+If no solution exists, return -1.
+import java.util.*;
+
+public class PalindromeIndex {
+    // Helper function to check if a string is palindrome between two indices
+    private static boolean isPalindrome(String s, int left, int right) {
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public static int palindromeIndex(String s) {
+        int left = 0, right = s.length() - 1;
+
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                // Try removing left character
+                if (isPalindrome(s, left + 1, right)) {
+                    return left;
+                }
+                // Try removing right character
+                if (isPalindrome(s, left, right - 1)) {
+                    return right;
+                }
+                return -1; // no solution
+            }
+            left++;
+            right--;
+        }
+        return -1; // already palindrome
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int q = sc.nextInt(); // number of queries
+        sc.nextLine(); // consume newline
+
+        for (int i = 0; i < q; i++) {
+            String s = sc.nextLine();
+            System.out.println(palindromeIndex(s));
+        }
+        sc.close();
+    }
+}
+INPUT:
+3
+aaab
+baa
+aaa
+OUTPUT:
+3
+0
+-1
+
