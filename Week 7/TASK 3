@@ -1,0 +1,26 @@
+AIM:
+Create a class Arithmetic with a method add(int a, int b) that returns their sum.
+Create a class Adder that inherits from Arithmetic.
+Demonstrate inheritance by printing the superclass name and using the add method.
+JAVA CODE:
+// Arithmetic class
+class Arithmetic {
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+
+// Adder class inherits Arithmetic
+class Adder extends Arithmetic { }
+
+// Solution class with main method
+public class Solution {
+    public static void main(String[] args) {
+        Adder a = new Adder();
+        System.out.println("My superclass is: " + a.getClass().getSuperclass().getName());
+        System.out.print(a.add(10, 32) + " " + a.add(10, 3) + " " + a.add(10, 10) + "\n");
+    }
+}
+OUTPUT:
+My superclass is: Arithmetic
+42 13 20
