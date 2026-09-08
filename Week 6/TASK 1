@@ -1,0 +1,50 @@
+AIM:
+To calculate the sum of similarities between a string S and each of its suffixes.
+The similarity of two strings is defined as the length of the longest common prefix.
+JAVA CODE:
+import java.util.*;
+
+public class StringSimilarity {
+    // Function to calculate similarity using Z-algorithm
+    public static long stringSimilarity(String s) {
+        int n = s.length();
+        int[] Z = new int[n];
+        int L = 0, R = 0;
+        long result = n; // similarity with itself is always full length
+
+        for (int i = 1; i < n; i++) {
+            if (i <= R) {
+                Z[i] = Math.min(R - i + 1, Z[i - L]);
+            }
+            while (i + Z[i] < n && s.charAt(Z[i]) == s.charAt(i + Z[i])) {
+                Z[i]++;
+            }
+            if (i + Z[i] - 1 > R) {
+                L = i;
+                R = i + Z[i] - 1;
+            }
+            result += Z[i];
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        for (int i = 0; i < t; i++) {
+            String s = sc.nextLine();
+            System.out.println(stringSimilarity(s));
+        }
+        sc.close();
+    }
+}
+INPUT:
+2
+ababaa
+aa
+OUTPUT:
+11
+3
+
