@@ -1,0 +1,27 @@
+AIM:
+To write a single generic method printArray that can print elements of both integer arrays and string arrays, without using method overloading.
+JAVA CODE:
+class Printer {
+    // Generic method
+    public static <T> void printArray(T[] array) {
+        for (T element : array) {
+            System.out.println(element);
+        }
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Integer[] intArray = {1, 2, 3};
+        String[] stringArray = {"Hello", "World"};
+
+        Printer.printArray(intArray);
+        Printer.printArray(stringArray);
+    }
+}
+OUTPUT:
+1
+2
+3
+Hello
+World
