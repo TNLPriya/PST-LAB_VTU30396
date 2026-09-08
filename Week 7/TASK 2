@@ -1,0 +1,53 @@
+AIM:
+To round student grades according to HackerLand University’s rules:
+If the grade is less than 38 → no rounding (failing grade).
+If the difference between the grade and the next multiple of 5 is ess than 3 → round up to that multiple.
+Otherwise → keep the grade unchanged.
+JAVA CODE:
+import java.util.*;
+
+public class GradingStudents {
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+        List<Integer> result = new ArrayList<>();
+        for (int grade : grades) {
+            if (grade < 38) {
+                result.add(grade); // failing grade, no rounding
+            } else {
+                int nextMultipleOf5 = ((grade / 5) + 1) * 5;
+                if (nextMultipleOf5 - grade < 3) {
+                    result.add(nextMultipleOf5); // round up
+                } else {
+                    result.add(grade); // keep as is
+                }
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); // number of students
+        List<Integer> grades = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            grades.add(sc.nextInt());
+        }
+        List<Integer> result = gradingStudents(grades);
+        for (int g : result) {
+            System.out.println(g);
+        }
+        sc.close();
+    }
+}
+INPUT:
+4
+73
+67
+38
+33
+OUTPUT:
+75
+67
+40
+33
+
+
