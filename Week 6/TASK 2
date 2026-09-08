@@ -1,0 +1,46 @@
+AIM:
+To determine if two given strings share a common substring.
+Since a substring can be as small as one character, the problem reduces to checking if the two strings share at least one common character.
+JAVA CODE:
+import java.util.*;
+
+public class TwoStrings {
+    public static String twoStrings(String s1, String s2) {
+        // Use a HashSet to store characters of s1
+        Set<Character> set = new HashSet<>();
+        for (char c : s1.toCharArray()) {
+            set.add(c);
+        }
+
+        // Check if any character of s2 exists in s1
+        for (char c : s2.toCharArray()) {
+            if (set.contains(c)) {
+                return "YES";
+            }
+        }
+        return "NO";
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();  // number of test cases
+        sc.nextLine(); // consume newline
+
+        for (int i = 0; i < t; i++) {
+            String s1 = sc.nextLine();
+            String s2 = sc.nextLine();
+            System.out.println(twoStrings(s1, s2));
+        }
+        sc.close();
+    }
+}
+INPUT:
+2
+hello
+world
+hi
+world
+OUTPUT:
+YES
+NO
+
