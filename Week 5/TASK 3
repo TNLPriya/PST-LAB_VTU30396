@@ -1,0 +1,56 @@
+PROBLEM STATEMENT:
+Given a circular integer array nums of length n, return the maximum possible sum of a non-empty subarray of nums.
+A circular array means the end of the array connects to the beginning.
+Each element can be included at most once in a subarray.
+JAVA CODE:
+import java.util.*;
+
+public class Main {
+    // Kadane's Algorithm for maximum subarray sum
+    private static int kadane(int[] nums) {
+        int maxSoFar = nums[0];
+        int currentMax = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            currentMax = Math.max(nums[i], currentMax + nums[i]);
+            maxSoFar = Math.max(maxSoFar, currentMax);
+        }
+        return maxSoFar;
+    }
+    public static int maxSubarraySumCircular(int[] nums) {
+        int n = nums.length;
+        // Step 1: Normal Kadane (non-circular case)
+        int maxKadane = kadane(nums);
+
+        // Step 2: Circular case
+        int totalSum = 0;
+        for (int i = 0; i < n; i++) {
+            totalSum += nums[i];
+            nums[i] = -nums[i]; // invert values for min subarray sum
+        }
+        // Step 3: Max circular sum = totalSum - minSubarraySum
+        int maxWrap = totalSum + kadane(nums);
+
+        // Edge case: if all numbers are negative
+        if (maxWrap == 0) return maxKadane;
+
+        return Math.max(maxKadane, maxWrap);
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+
+        System.out.println(maxSubarraySumCircular(nums));
+        sc.close();
+    }
+INPUT:
+4
+1 -2 3 -2
+OUTPUT:
+3
+
+}
