@@ -1,0 +1,45 @@
+PROBLEM STATEMENT:
+To transform a given string consisting of only characters A and B into a string with no 
+matching adjacent characters by deleting the minimum number of characters. The goal is to calculate the minimum number of deletions required.
+JAVA CODE:
+import java.util.*;
+
+public class AlternatingCharacters {
+    public static int alternatingCharacters(String s) {
+        int deletions = 0;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == s.charAt(i - 1)) {
+                deletions++;
+            }
+        }
+        return deletions;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int q = sc.nextInt();  // number of queries
+        sc.nextLine(); // consume newline
+
+        for (int i = 0; i < q; i++) {
+            String s = sc.nextLine();
+            System.out.println(alternatingCharacters(s));
+        }
+        sc.close();
+    }
+}
+INPUT:
+5
+AAAA
+BBBBB
+ABABABAB
+BABABA
+AAABBB
+OUTPUT:
+3
+4
+0
+0
+4
+
+
+
