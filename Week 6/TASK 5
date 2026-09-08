@@ -1,0 +1,59 @@
+AIM:
+You are given a string s of lowercase letters. For each possible rotation of s (cut the first k characters and append them to the end),
+you must find the maximum length of any palindromic substring in that rotated string.
+JAVA CCODE:
+import java.util.*;
+
+public class PalindromicRotation {
+    // Expand around center to find longest palindrome
+    private static int expand(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return right - left - 1;
+    }
+
+    // Find longest palindromic substring length
+    private static int longestPalindrome(String s) {
+        int maxLen = 1;
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = expand(s, i, i);     // odd length
+            int len2 = expand(s, i, i + 1); // even length
+            maxLen = Math.max(maxLen, Math.max(len1, len2));
+        }
+        return maxLen;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); // length of string
+        sc.nextLine();
+        String s = sc.nextLine();
+
+        // Generate all rotations
+        for (int k = 0; k < n; k++) {
+            String rotated = s.substring(k) + s.substring(0, k);
+            System.out.println(longestPalindrome(rotated));
+        }
+        sc.close();
+    }
+}
+INPUT:
+13
+aaaaabbbbaaaa
+OUTPUT:
+12
+12
+10
+8
+8
+9
+11
+13
+11
+9
+8
+8
+10
+
