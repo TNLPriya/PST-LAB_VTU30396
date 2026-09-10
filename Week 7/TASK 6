@@ -1,0 +1,57 @@
+AIM:
+Design a class ParkingSystem that:
+Initializes with a fixed number of slots for big, medium, and small cars.
+Provides a method addCar(int carType) that:
+Parks a car if a slot of its type is available.
+Returns true if parked successfully, otherwise false.
+JAVA CODE:
+class ParkingSystem {
+    private int big;
+    private int medium;
+    private int small;
+
+    // Constructor
+    public ParkingSystem(int big, int medium, int small) {
+        this.big = big;
+        this.medium = medium;
+        this.small = small;
+    }
+
+    // Method to add car
+    public boolean addCar(int carType) {
+        if (carType == 1) { // big car
+            if (big > 0) {
+                big--;
+                return true;
+            }
+        } else if (carType == 2) { // medium car
+            if (medium > 0) {
+                medium--;
+                return true;
+            }
+        } else if (carType == 3) { // small car
+            if (small > 0) {
+                small--;
+                return true;
+            }
+        }
+        return false; // no slot available
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        ParkingSystem parkingSystem = new ParkingSystem(1, 1, 0);
+        System.out.println(parkingSystem.addCar(1)); // true
+        System.out.println(parkingSystem.addCar(2)); // true
+        System.out.println(parkingSystem.addCar(3)); // false
+        System.out.println(parkingSystem.addCar(1)); // false
+    }
+}
+INPUT:
+["ParkingSystem", "addCar", "addCar", "addCar", "addCar"]
+[[1, 1, 0], [1], [2], [3], [1]]
+OUTPUT:
+[null, true, true, false, false]
+
+INI
