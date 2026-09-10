@@ -1,0 +1,77 @@
+AIM:
+Design a class UndergroundSystem that:
+Tracks customer check-ins and check-outs.
+Computes the average travel time between two stations.
+JAVA CODE:
+import java.util.*;
+
+class UndergroundSystem {
+    // Store active check-ins: id -> (stationName, time)
+    private Map<Integer, Pair> checkIns;
+    // Store travel data: "startStation-endStation" -> (totalTime, tripCount)
+    private Map<String, double[]> travelData;
+
+    public UndergroundSystem() {
+        checkIns = new HashMap<>();
+        travelData = new HashMap<>();
+    }
+
+    public void checkIn(int id, String stationName, int t) {
+        checkIns.put(id, new Pair(stationName, t));
+    }
+
+    public void checkOut(int id, String stationName, int t) {
+        Pair checkInInfo = checkIns.get(id);
+        checkIns.remove(id);
+
+        String route = checkInInfo.station + "-" + stationName;
+        int travelTime = t - checkInInfo.time;
+
+        travelData.putIfAbsent(route, new double[2]);
+        travelData.get(route)[0] += travelTime; // total time
+        travelData.get(route)[1] += 1;          // trip count
+    }
+
+    public double getAverageTime(String startStation, String endStation) {
+        String route = startStation + "-" + endStation;
+        double[] data = travelData.get(route);
+        return data[0] / data[1];
+    }
+
+    // Helper class to store check-in info
+    private static class Pair {
+        String station;
+        int time;
+        Pair(String station, int time) {
+            this.station = station;
+            this.time = time;
+        }
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        UndergroundSystem undergroundSystem = new UndergroundSystem();
+
+        undergroundSystem.checkIn(45, "Leyton", 3);
+        undergroundSystem.checkIn(32, "Paradise", 8);
+        undergroundSystem.checkIn(27, "Leyton", 10);
+
+        undergroundSystem.checkOut(45, "Waterloo", 15);  // 12 minutes
+        undergroundSystem.checkOut(27, "Waterloo", 20);  // 10 minutes
+        undergroundSystem.checkOut(32, "Cambridge", 22); // 14 minutes
+
+        System.out.println(undergroundSystem.getAverageTime("Paradise", "Cambridge")); // 14.0
+        System.out.println(undergroundSystem.getAverageTime("Leyton", "Waterloo"));    // 11.0
+
+        undergroundSystem.checkIn(10, "Leyton", 24);
+        System.out.println(undergroundSystem.getAverageTime("Leyton", "Waterloo"));    // 11.0
+        undergroundSystem.checkOut(10, "Waterloo", 38);  // 14 minutes
+        System.out.println(undergroundSystem.getAverageTime("Leyton", "Waterloo"));    // 12.0
+    }
+}
+INPUT:
+["UndergroundSystem","checkIn","checkIn","checkIn","checkOut","checkOut","checkOut","getAverageTime","getAverageTime","checkIn","getAverageTime","checkOut","getAverageTime"]
+[[],[45,"Leyton",3],[32,"Paradise",8],[27,"Leyton",10],[45,"Waterloo",15],[27,"Waterloo",20],[32,"Cambridge",22],["Paradise","Cambridge"],["Leyton","Waterloo"],[10,"Leyton",24],["Leyton","Waterloo"],[10,"Waterloo",38],["Leyton","Waterloo"]]
+OUTPUT:
+[null,null,null,null,null,null,null,14.00000,11.00000,null,11.00000,null,12.00000]
