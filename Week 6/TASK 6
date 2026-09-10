@@ -1,0 +1,28 @@
+AIM:
+To return the index of the first occurrence of needle in haystack.
+If needle exists in haystack, return its starting index.
+If not, return -1.
+JAVA CODE:
+public class FirstOccurrence {
+    public static int strStr(String haystack, String needle) {
+        // Use built-in indexOf for simplicity
+        return haystack.indexOf(needle);
+    }
+
+    public static void main(String[] args) {
+        // Example 1
+        String haystack1 = "sadbutsad";
+        String needle1 = "sad";
+        System.out.println(strStr(haystack1, needle1)); // Output: 0
+
+        // Example 2
+        String haystack2 = "leetcode";
+        String needle2 = "leeto";
+        System.out.println(strStr(haystack2, needle2)); // Output: -1
+    }
+}
+INPUT:
+haystack = "sadbutsad"
+needle = "sad"
+OUTPUT:
+0
